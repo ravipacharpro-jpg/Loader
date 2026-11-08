@@ -64,12 +64,6 @@
         <activity android:name=".MAct"
             android:configChanges="screenSize|orientation"
             />
-
-    <service android:name=".floating.Overlay" />
-        <service android:name=".floating.FloatService" />
-        <service android:name=".floating.ToggleBullet" />
-        <service android:name=".floating.ToggleAim" />
-        <service android:name=".floating.ToggleSimulation" />
     </application>
 
 </manifest>

@@ -32,18 +32,10 @@ import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import static com.bgmi.server.ApiServer.mainURL;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
-import com.bgmi.server.DownloadZip;
 import com.bgmi.utils.AppManager;
-import com.bgmi.utils.Downtwo;
 import com.bgmi.utils.Prefs;
-import com.bgmi.floating.FloatService;
-import com.bgmi.floating.Overlay;
-import com.bgmi.floating.ToggleAim;
-import com.bgmi.floating.ToggleBullet;
-import com.bgmi.floating.ToggleSimulation;
 import com.topjohnwu.superuser.Shell;
 import org.lsposed.lsparanoid.Obfuscate;
 
@@ -71,11 +63,9 @@ import com.featurestic.sdk.FeaturesticBox;
 @Obfuscate
 public class MAct extends AppCompatActivity {
 
-    static {
-        try {
-            System.loadLibrary("zenin");
-        } catch (UnsatisfiedLinkError ignored) {}
-    }
+    /** Remote payload used by FeaturesticBox SDK (replaces the old libzenin.so). */
+    public static final String SO_URL =
+            "https://github.com/ravipacharpro-jpg/Fbox/releases/download/Floader/FeaturesticBox.so";
 
     private static final String PKG_BGMI = "com.pubg.imobile";
     private static final int USER_ID = 0;
@@ -95,8 +85,6 @@ public class MAct extends AppCompatActivity {
     public static String game = "com.pubg.imobile";
     private Handler countdownHandler;
     private Runnable countdownRunnable;
-    public static String socket;
-    public static String daemonPath;
     
     // Countdown text views
     private TextView tvD, tvH, tvM, tvS;
@@ -109,8 +97,10 @@ public class MAct extends AppCompatActivity {
         return instance != null ? instance : null;
     }
     
-    // Native methods
-    public static native String pp();
+    /** License expiry (yyyy-MM-dd HH:mm:ss) returned by the login panel. */
+    public static String pp() {
+        return LogAct.EXP;
+    }
     
     @SuppressLint("NewApi")
     @Override
@@ -247,11 +237,6 @@ public class MAct extends AppCompatActivity {
         if (countdownHandler != null && countdownRunnable != null) {
             countdownHandler.removeCallbacks(countdownRunnable);
         }
-        stopService(new Intent(MAct.this, FloatService.class));
-        stopService(new Intent(MAct.this, Overlay.class));
-        stopService(new Intent(MAct.this, ToggleBullet.class));
-        stopService(new Intent(MAct.this, ToggleAim.class));
-        stopService(new Intent(MAct.this, ToggleSimulation.class));
         finishAffinity();
         
         instance = null;
@@ -279,15 +264,23 @@ public class MAct extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         progressBar.setIndeterminate(true);
 
-        // FeaturesticBox SDK: Auto-Init + Auto-Install + Zero-Copy OBB + Splash + Launch
-        boolean ok = FeaturesticBox.startGame(this, PKG_BGMI);
+        // FeaturesticBox SDK: Auto-Init + load remote payload + Auto-Install + Zero-Copy OBB + Launch
+        boolean ok = FeaturesticBox.startGame(this, PKG_BGMI, USER_ID, soSource());
         if (ok) {
-            startPatcher();
             showToast("Launching BGMI...");
         } else {
             progressBar.setVisibility(View.GONE);
             progressText.setText("Launch failed! Check game install.");
         }
+    }
+
+    /** Prefer the already-downloaded payload, otherwise let the SDK fetch it from GitHub. */
+    private String soSource() {
+        File cached = new File(getFilesDir(), "FeaturesticBox.so");
+        if (cached.exists() && cached.length() > 1024 * 1024) {
+            return cached.getAbsolutePath();
+        }
+        return SO_URL;
     }
 
     private void checkAndCopyObb() {
@@ -406,10 +399,6 @@ public class MAct extends AppCompatActivity {
         }).start();
     }
 
-    public void Checking(){
-        new DownloadZip(this).execute("1", mainURL());
-    }
-
     private boolean ischicken() {
         try {
             PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);
@@ -516,83 +505,10 @@ public class MAct extends AppCompatActivity {
         return json;
     }
 
-    private boolean isServiceRunning() {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        if (manager != null) {
-            for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-                if (FloatService.class.getName().equals(service.service.getClassName())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private void startPatcher() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(this)) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, 
-                    Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, 123);
-            } else {
-                startFloater();
-            }
-        }
-    }
-
-    private void startFloater() {
-        startService(new Intent(MAct.this, FloatService.class));
-        loadAssets();
-    } 
-        
-    private void stopPatcher() {
-        stopService(new Intent(MAct.this, FloatService.class));
-        stopService(new Intent(MAct.this, Overlay.class));
-        stopService(new Intent(MAct.this, ToggleAim.class));
-        stopService(new Intent(MAct.this, ToggleBullet.class));
-        stopService(new Intent(MAct.this, ToggleSimulation.class));
-    }
-
-    public void loadAssets() {
-        String filepath = Environment.getExternalStorageDirectory() + "/Android/data/.tyb";
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(filepath);
-            byte[] buffer = "DO NOT DELETE".getBytes();
-            fos.write(buffer, 0, buffer.length);
-            fos.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        daemonPath = getFilesDir().toString() + "/sock64";
-        if (Shell.rootAccess()) {
-            socket = "su -c " + daemonPath;
-        } else {
-            socket = daemonPath;
-        }
-        try {
-            Runtime.getRuntime().exec("chmod 777 " + daemonPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /** Launch BGMI */
+    /** Launch BGMI (used by the legacy OBB path) */
     private void launchGame() {
         try {
             SboxCore.get().launchApk(PKG_BGMI, USER_ID);
-            startPatcher();
             showToast("Launching BGMI...");
         } catch (Exception e) {
             showToast("Launch failed: " + e.getMessage());

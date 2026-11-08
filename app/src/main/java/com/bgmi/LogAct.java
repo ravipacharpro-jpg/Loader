@@ -38,26 +38,34 @@ import android.widget.TextView;
 import android.widget.Toast;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
-import com.bgmi.floating.Overlay;
 import java.security.MessageDigest;
 
 import com.bgmi.utils.Downtwo;
 import com.bgmi.utils.Prefs;
 
+import org.json.JSONObject;
 import org.lsposed.lsparanoid.Obfuscate;
 
 @Obfuscate
 public class LogAct extends AppCompatActivity {
 
-    static {
-        try {
-            System.loadLibrary("zenin");
-        } catch (UnsatisfiedLinkError ignored) {
-        }
-    }
+    /** License panel endpoint. */
+    private static final String AUTH_URL = "https://zoro.manishflash.online/connect";
+    /** Shared secret used by the panel to sign the returned token. */
+    private static final String AUTH_SALT = "Vm8Lk7Uj2JmsjCPVPVjrLa7zgfx3uz9E";
+
+    /** License expiry (yyyy-MM-dd HH:mm:ss) received from the panel. */
+    public static String EXP = "NULL";
 
     private Prefs prefs;
     private final String USER = "USER";
@@ -439,7 +447,87 @@ private void copyKeyToClipboard() {
         }
     }
 
-    // --- Natives
-    private static native String Check(Context mContext, String userKey);
-    private native String GetKey();
+    // --- License check (pure Java replacement for the old libzenin.so JNI) ---
+    private static String Check(Context mContext, String userKey) {
+        HttpURLConnection conn = null;
+        try {
+            String androidId = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+            String raw = userKey + (androidId == null ? "" : androidId) + Build.MODEL + Build.BRAND;
+            String serial = UUID.nameUUIDFromBytes(raw.getBytes(StandardCharsets.UTF_8)).toString();
+
+            String body = "game=PUBG"
+                    + "&user_key=" + URLEncoder.encode(userKey, "UTF-8")
+                    + "&serial=" + URLEncoder.encode(serial, "UTF-8");
+
+            conn = (HttpURLConnection) new URL(AUTH_URL).openConnection();
+            conn.setRequestMethod("POST");
+            conn.setConnectTimeout(15000);
+            conn.setReadTimeout(15000);
+            conn.setDoOutput(true);
+            conn.setInstanceFollowRedirects(true);
+            conn.setRequestProperty("Accept", "application/json");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+
+            OutputStream os = conn.getOutputStream();
+            os.write(body.getBytes(StandardCharsets.UTF_8));
+            os.flush();
+            os.close();
+
+            int code = conn.getResponseCode();
+            InputStream is = (code >= 400) ? conn.getErrorStream() : conn.getInputStream();
+            String response = readAll(is);
+            Log.d("LogAct", "auth response (" + code + "): " + response);
+
+            JSONObject root = new JSONObject(response);
+            if (!root.optBoolean("status", false)) {
+                return root.optString("reason", "Invalid key");
+            }
+
+            JSONObject data = root.getJSONObject("data");
+            String exp = data.optString("EXP", "NULL");
+            String token = data.optString("token", "");
+            long rng = data.optLong("rng", 0L);
+
+            if (rng + 30L <= System.currentTimeMillis() / 1000L) {
+                return "Server time expired, retry";
+            }
+
+            String auth = md5("PUBG-" + userKey + "-" + serial + "-" + AUTH_SALT);
+            if (!auth.equalsIgnoreCase(token)) {
+                return "Token mismatch";
+            }
+
+            EXP = exp;
+            mContext.getSharedPreferences("settings", Context.MODE_PRIVATE)
+                    .edit().putString("EXP", exp).apply();
+            return "OK";
+        } catch (Exception e) {
+            Log.e("LogAct", "login error", e);
+            return e.getMessage() == null ? "Network error" : e.getMessage();
+        } finally {
+            if (conn != null) conn.disconnect();
+        }
+    }
+
+    private static String readAll(InputStream is) throws Exception {
+        if (is == null) return "";
+        BufferedReader br = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) sb.append(line);
+        br.close();
+        return sb.toString();
+    }
+
+    private static String md5(String s) throws Exception {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] digest = md.digest(s.getBytes(StandardCharsets.UTF_8));
+        StringBuilder out = new StringBuilder();
+        for (byte b : digest) out.append(String.format("%02x", b));
+        return out.toString();
+    }
+
+    private String GetKey() {
+        return "https://t.me/";
+    }
 }

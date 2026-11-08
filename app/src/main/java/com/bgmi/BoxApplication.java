@@ -18,11 +18,6 @@ import org.lsposed.lsparanoid.Obfuscate;
 @Obfuscate
 public class BoxApplication extends Application {
 
-    static {
-        System.loadLibrary("zenin"); 
-    }
-    
-    public static native String getSdkKey();
     private static final String TAG = "BoxApplication";
     private static final String EXPECTED_SIGNATURE_HASH = "E545B00E31AF8FC008566DE0B87C0B17FC467A90AEED71B00755B98698AE58BC";
 
@@ -72,7 +67,7 @@ public class BoxApplication extends Application {
     public void onCreate() {
         super.onCreate();
         SboxCore.get().doCreate();
-        BoxActivate.activateBox("PRIVATE_SRC_FILES_OWNER");
+        BoxActivate.activateSdk("PRIVATE_SRC_FILES_OWNER");
         // Check signature before activating
         if (isValidSignature()) {
             Log.d(TAG, "Valid signature found, activating box...");
