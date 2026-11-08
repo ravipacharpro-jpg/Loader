@@ -2,7 +2,7 @@
 
 **AAR:** `app/libs/FeaturesticBox.aar` (2,064,195 bytes, md5 `176c75ea2756061f903637470403373b`)
 **Purana AAR:** `sbox-release.aar` (1,699,727 bytes) — hata diya gaya
-**Build status:** `:app:assembleDebug` → **BUILD SUCCESSFUL** (APK 9.28 MB, sirf `libfbox.so` andar hai, `libzenin.so` nahi)
+**Build status:** `:app:assembleDebug` → **BUILD SUCCESSFUL** (APK ~2.6 MB, sirf `libfbox.so` andar hai, `libzenin.so` nahi; remote `FeaturesticBox.so` runtime me download hota hai)
 
 > Seedha jawab: **AAR khud connect ho raha hai** — build pass hai. Jo "connect nahi ho raha" jaisa lagta hai, wo actually **API rename breaks** the + Loader ka purana `libzenin.so` dependency tha. Neeche har issue point-wise hai taaki AAR me fix kar sako.
 
@@ -168,7 +168,7 @@ AAR `ProxyActivity` ke liye `@style/BTheme` use karta hai aur khud define karta 
 | AAR `jni/arm64-v8a/libfbox.so` | 336,104 B | `JNI_OnLoad` ✅ |
 | Remote `FeaturesticBox.so` | 8,488,360 B | **koi `Java_*` symbol nahi**, 5,284 exported T symbols (OpenSSL etc.) — ye **game-process payload** hai |
 
-➡️ `System.loadLibrary("FeaturesticBox")` **kabhi mat karo**. Sirf `FeaturesticBox.startGame(ctx, pkg, userId, soUrl)` ko do; SDK khud `filesDir/fbox_so_cache` me download/load karta hai.
+➡️ `System.loadLibrary("FeaturesticBox")` **kabhi mat karo**. Loader `sdk/SoUpdater.java` se GitHub se remote `FeaturesticBox.so` download karke `files/FeaturesticBox.so` me cache karta hai, phir `FeaturesticBox.startGame(ctx, pkg, userId, soPath)` ko local path deta hai; SDK `System.load(path)` karta hai (loader process mein, isliye overlay permission + FGS notification chahiye float payloads ke liye).
 
 ### 3.2 `FeaturesticBox.setFeature(String, boolean)` **no-op** hai
 Ye sirf private static `sFeatures` map me value daalta hai — core ise **padhta hi nahi**. Isliye "float off / feature on" is API se control nahi hota. AAR me ise actually wire karna hoga.
@@ -206,18 +206,23 @@ Agar panel ka salt / serial formula badla, login fail hoga — **AAR se independ
 | File | Change |
 |---|---|
 | `app/libs/sbox-release.aar` | ❌ deleted |
-| `app/libs/FeaturesticBox.aar` | ✅ added |
-| `settings.gradle` | `include ':Sbox'` hataya (folder hi nahi tha) |
-| `BoxApplication` | `activateBox` → `activateSdk`, `System.loadLibrary("zenin")` hataya |
-| `MAct` | `FeaturesticBox.startGame(this, PKG_BGMI, 0, SO_URL)`, saara float/overlay code hataya |
-| `LogAct` | native `Check`/`GetKey` → pure Java HTTP login |
-| `Downtwo` | ZIP+password extraction hataya, `.so` direct download → `files/FeaturesticBox.so` |
-| `app/src/main/jni/` | ❌ deleted (libzenin source) |
-| `app/src/main/jniLibs/` | ❌ deleted (`libzenin.so`) |
-| `app/src/main/java/com/bgmi/floating/` | ❌ deleted (FloatService/Overlay/Toggle*) |
-| `app/src/main/java/com/bgmi/server/` | ❌ deleted (ApiServer/DownloadZip/Zip — sab native `zenin` pe the) |
-| `AndroidManifest.xml` | 5 floating services hataye |
-| `app/build.gradle` | `externalNativeBuild` (cmake + ndkBuild) hataya |
+| `app/libs/FeaturesticBox.aar` | ✅ added (2,064,195 B) |
+| `settings.gradle` | `FeaturesticLoader`, `include ':app'` |
+| `app/build.gradle` | `com.bgmi`, minSdk 24, targetSdk 28, arm64-v8a, appcompat only |
+| `AndroidManifest.xml` | Splash/Login/Main activities + BoxService; 182 AAR perms trimmed → 27 |
+| `App.java` | ✅ new: `FeaturesticBox.init(ctx, false)` + `BoxActivate.activateSdk("FEATURESTIC")` |
+| `ui/SplashActivity.java` | ✅ new: branded splash, routes to Login/Main |
+| `ui/LoginActivity.java` | ✅ new: pure-Java HTTP login (same token/salt formula) |
+| `ui/MainActivity.java` | ✅ new: SETUP → START GAME, OBB copy with progress, remote .so download + launch |
+| `net/AuthApi.java` | ✅ new: `HttpURLConnection` login client |
+| `sdk/BoxManager.java` | ✅ new: init/activate/isInstalled/installPackageAsUser/startGame wrapper |
+| `sdk/ObbSetup.java` | ✅ new: host→virtual OBB copy with real % progress via MetaStorageManager |
+| `sdk/SoUpdater.java` | ✅ new: downloads remote .so, caches in files/ |
+| `sdk/BoxService.java` | ✅ new: foreground service + notification while session active |
+| `util/Prefs.java`, `DeviceId.java`, `Ui.java` | ✅ new: helpers |
+| `BoxApplication` / `MAct` / `LogAct` / `Downtwo` | ❌ deleted |
+| `app/src/main/jni/` + `jniLibs/` | ❌ deleted (libzenin) |
+| `com/bgmi/floating/` + `com/bgmi/server/` | ❌ deleted (no ESP/float/toggle in loader) |
 
 ---
 
