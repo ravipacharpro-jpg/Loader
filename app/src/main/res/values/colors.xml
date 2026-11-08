@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorAccent">#1C2023</color>
-    <color name="primary">#4CAF50</color> <!-- A green accent -->
-    <color name="error">#F44336</color>   
-    <color name="black">#000000</color>
-    <color name="secondary">#3C3F58</color>
-    <color name="primaryText">#2B2E4A</color>
-    <color name="hintText">#9E9E9E</color>
-    <color name="buttonPrimary">#5C7AEA</color>
+    <!-- iOS-inspired palette -->
+    <color name="ios_blue">#007AFF</color>
+    <color name="ios_blue_dark">#0063D1</color>
+    <color name="ios_blue_light">#EAF3FF</color>
+    <color name="ios_green">#34C759</color>
+    <color name="ios_green_bg">#E9F9EF</color>
+    <color name="ios_red">#FF3B30</color>
+    <color name="ios_orange">#FF9F0A</color>
+
+    <color name="ios_grouped_bg">#F2F2F7</color>
+    <color name="ios_card">#FFFFFF</color>
+    <color name="ios_separator">#E5E5EA</color>
+    <color name="ios_fill">#F2F2F7</color>
+    <color name="ios_fill_dark">#E9E9EE</color>
+
+    <color name="ios_label">#1C1C1E</color>
+    <color name="ios_label_secondary">#8E8E93</color>
+    <color name="ios_label_tertiary">#C7C7CC</color>
+
+    <color name="splash_top">#0B1E45</color>
+    <color name="splash_bottom">#050B1A</color>
     <color name="white">#FFFFFF</color>
-    <color name="background">#F5F5F5</color>
-    <color name="secodary2">#272E48</color>
-    <color name="button">#FF40CC7E</color>
-    <color name="background2">#C9221313</color>
-    <color name="crbgdm">#FF40CC7E</color>
-     <color name="darker_gray">#616161</color> 
-     
-      <color name="theme">#1E1E1E</color>
-    <color name="theme1">#2A2A2A</color>
-    <color name="theme2">#2A2A2A</color>
-    <color name="theme3">#2A2A2A</color>
-  
-    <color name="buttonon">#1E1E1E</color>
-    <color name="buttonof">#1E1E1E</color>
- 
-    <color name="whitegelap">#9C9999</color>
-   <color name="green">#4CAF50</color>
-   <color name="livaiamk">#FFFFFF</color>
-    <color name="back">#121212</color>
-    <color name="red">#ff0000</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
 </resources>

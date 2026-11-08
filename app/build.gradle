@@ -1,80 +1,43 @@
 plugins {
     id 'com.android.application'
-    id 'org.lsposed.lsparanoid'
-    id 'top.niunaijun.blackobfuscator'
 }
-
-
-
-class Scrambler {
-    Random random = new Random()
-
-    String getRandomString(int i) {
-        return random.with {(1..(6 + random.nextInt(i))).collect {(('a'..'z')).join()[ nextInt((('a'..'z')).join().length())]}.join()}
-    }
-}
-
-Scrambler scrambler = new Scrambler()
 
 android {
     namespace 'com.bgmi'
     compileSdk 34
-    
+
     signingConfigs {
-        debug {
-            storeFile file("shayksig.jks")
-            storePassword "shayk12"
-            keyPassword "shayk12"
-            keyAlias "Shayk"
-        }
         release {
             storeFile file("shayksig.jks")
             storePassword "shayk12"
             keyPassword "shayk12"
             keyAlias "Shayk"
         }
-    }
-    
-    lint {
-        baseline = file("lint-baseline.xml")
     }
 
     defaultConfig {
         applicationId "com.bgmi"
         minSdk 24
-        //noinspection OldTargetApi,EditedTargetSdkVersion,ExpiredTargetSdkVersion
+        //noinspection ExpiredTargetSdkVersion
         targetSdk 28
-        versionCode 1
-        versionName "2024.09.21"
+        versionCode 2
+        versionName "1.0.0"
 
-        vectorDrawables {
-            useSupportLibrary true
-        }
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             abiFilters "arm64-v8a"
         }
-
-        multiDexEnabled  false
     }
 
     buildTypes {
-        release {
-            signingConfig signingConfigs.release
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            ndk {
-                debugSymbolLevel 'FULL' // Enable debugging symbols for native libraries
-            }
-        }
         debug {
             signingConfig signingConfigs.release
             debuggable true
+            minifyEnabled false
+        }
+        release {
+            signingConfig signingConfigs.release
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -83,68 +46,24 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    lsparanoid {
-        seed = 1919810
-        global = false
-        includeDependencies = false
-        variantFilter = { true }
-    }
-
-BlackObfuscator {
-    enabled false
-    depth 3
-    obfClass = [
-        "com.bgmi.BoxApplication",
-        "com.bgmi.MAct",
-        "com.bgmi.utils.DownTwo",
-        "com.bgmi.LogAct"
-    ]
-}
-
 
     buildFeatures {
-        viewBinding true
         buildConfig true
     }
 
-    // Native payload is downloaded at runtime (FeaturesticBox.so); no NDK build needed.
-    ndkVersion "24.0.8215888"
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging false
+        }
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
 }
 
 dependencies {
-    // JAR + AAR from libs
-    implementation fileTree(
-            dir: "libs",
-            include: ["*.jar", "*.aar"]
-    )
-
+    implementation fileTree(dir: "libs", include: ["*.jar", "*.aar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.11.0'
-
-    // ZIP
-    implementation 'net.lingala.zip4j:zip4j:2.9.0'
-
-    // OkHttp + Okio
-    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
-    implementation 'com.squareup.okio:okio:3.9.0'
-
-    // Progress Dialog
-    implementation 'com.github.techinessoverloaded:progress-dialog:1.5.1'
-
-    // LibSU
-    implementation "com.github.topjohnwu.libsu:core:3.1.1"
-
-    // FreeReflection
-    implementation 'com.github.tiann:FreeReflection:3.2.2'
-
-    // BlackReflection
-    implementation 'com.github.CodingGay.BlackReflection:core:1.1.4'
-    annotationProcessor 'com.github.CodingGay.BlackReflection:compiler:1.1.4'
-
-    // JavaPoet (code-gen only, not needed at runtime)
-    compileOnly 'com.squareup:javapoet:1.13.0'
-
-    // Annotation API (compile-time only)
-    compileOnly 'javax.annotation:javax.annotation-api:1.3.2'
 }

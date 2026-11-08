@@ -1,4 +1,2 @@
-
-rootProject.name = "@PRIVATE_SRC_FILES"
+rootProject.name = "FeaturesticLoader"
 include ':app'
-
