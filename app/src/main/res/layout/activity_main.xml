@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="#F0F2F5"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <ScrollView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:fillViewport="false">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="32dp"
+            android:paddingBottom="32dp">
+
+            <!-- Main White Card -->
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:background="@drawable/white_card_bg"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:elevation="5dp"
+                android:layout_marginBottom="16dp">
+
+                <!-- App header row: logo + name + divider -->
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+
+                    <ImageView
+                        android:layout_height="48dp"
+                        android:layout_width="48dp"
+                        android:src="@drawable/ic_launcher"
+                        android:padding="2dp"
+                        android:scaleType="fitCenter" />
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="PRIVATE_SRC_FILES"
+                        android:textColor="#555555"
+                        android:textSize="20sp"
+                        android:fontFamily="sans-serif"
+                        android:textStyle="bold"
+                        android:layout_marginStart="12dp" />
+
+                </LinearLayout>
+
+                <!-- Horizontal divider -->
+                <View
+                    android:layout_height="1dp"
+                    android:layout_width="match_parent"
+                    android:background="#2E7D32"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Subscription Remaining label -->
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Subscription Remaining"
+                    android:textColor="#555555"
+                    android:textSize="14sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Countdown box with green border -->
+                <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/countdown_box_bg"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:layout_marginBottom="16dp"
+                    android:weightSum="4">
+
+                    <!-- Days -->
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvD"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="00"
+                            android:textColor="#FF00FF"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Day"
+                            android:textColor="#888888"
+                            android:textSize="11sp"
+                            android:fontFamily="sans-serif" />
+
+                    </LinearLayout>
+
+                    <!-- Hours -->
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvH"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="00"
+                            android:textColor="#FF00FF"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Hour"
+                            android:textColor="#888888"
+                            android:textSize="11sp"
+                            android:fontFamily="sans-serif" />
+
+                    </LinearLayout>
+
+                    <!-- Minutes -->
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvM"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="00"
+                            android:textColor="#FF00FF"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Minute"
+                            android:textColor="#888888"
+                            android:textSize="11sp"
+                            android:fontFamily="sans-serif" />
+
+                    </LinearLayout>
+
+                    <!-- Seconds -->
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/tvS"
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="00"
+                            android:textColor="#FF00FF"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:text="Second"
+                            android:textColor="#888888"
+                            android:textSize="11sp"
+                            android:fontFamily="sans-serif" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Device Info -->
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Device Info"
+                    android:textColor="#333333"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:id="@+id/tvDeviceInfo"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Loading..."
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Loader Info -->
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Loader Info"
+                    android:textColor="#333333"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="2dp" />
+
+                <TextView
+                    android:id="@+id/tvLoaderInfo"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Loading..."
+                    android:textColor="#666666"
+                    android:textSize="12sp"
+                    android:fontFamily="sans-serif"
+                    android:layout_marginBottom="0dp" />
+
+            </LinearLayout>
+
+            <!-- Hide ESP toggle row -->
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="14dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Hide Esp In Screen Recording"
+                    android:textColor="#222222"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif" />
+
+                <Switch
+                    android:id="@+id/hiderecording"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:thumbTint="#FF4081"
+                    android:trackTint="#FFCDD2" />
+
+            </LinearLayout>
+
+            <!-- START GAME button -->
+            <TextView
+                android:id="@+id/startBgmi"
+                android:layout_height="52dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/gradient_login_btn"
+                android:text="START GAME"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:stateListAnimator="@null"
+                android:layout_marginBottom="12dp" />
+
+            <!-- SIGN OUT + CLEAR LOGIN buttons -->
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:id="@+id/btnSignOut"
+                    android:layout_height="52dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:background="@drawable/dark_rounded_btn"
+                    android:text="SIGN OUT"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:stateListAnimator="@null" />
+
+                <TextView
+                    android:id="@+id/btnClearLogin"
+                    android:layout_height="52dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/dark_rounded_btn"
+                    android:text="CLEAR LOGIN"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13sp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:stateListAnimator="@null" />
+
+            </LinearLayout>
+
+            <!-- Progress card (hidden by default, shown during game install/OBB) -->
+            <LinearLayout
+                android:id="@+id/progressCard"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:background="@drawable/white_card_bg"
+                android:elevation="4dp"
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:id="@+id/progressText"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Preparing..."
+                    android:textColor="#333333"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="sans-serif" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_height="8dp"
+                    android:layout_width="match_parent"
+                    android:max="100"
+                    android:indeterminate="false"
+                    android:progressTint="#4CAF50"
+                    android:progressBackgroundTint="#DDDDDD"
+                    style="?android:attr/progressBarStyleHorizontal" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

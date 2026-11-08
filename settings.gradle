@@ -1,0 +1,4 @@
+
+rootProject.name = "@PRIVATE_SRC_FILES"
+include ':app'
+

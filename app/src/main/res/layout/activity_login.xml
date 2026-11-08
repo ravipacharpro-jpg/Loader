@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:background="#F0F2F5"
+     android:clipChildren="false"
+     android:clipToPadding="false">
+
+    <!-- Centered card -->
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_gravity="center"
+         android:orientation="vertical"
+         android:gravity="center"
+         android:clipChildren="false"
+         android:clipToPadding="false"
+         android:paddingTop="40dp"
+         android:paddingBottom="40dp">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:background="@drawable/white_card_bg"
+             android:layout_marginStart="32dp"
+             android:layout_marginEnd="32dp"
+             android:paddingStart="24dp"
+             android:paddingEnd="24dp"
+             android:paddingTop="36dp"
+             android:paddingBottom="36dp"
+             android:orientation="vertical"
+             android:id="@+id/loginCard"
+             android:gravity="center"
+             android:elevation="6dp">
+
+            <!-- Logo circle -->
+            <ImageView
+                 android:layout_height="110dp"
+                 android:layout_width="110dp"
+                 android:src="@drawable/ic_launcher"
+                 android:background="#FFFFFF"
+                 android:padding="12dp"
+                 android:id="@+id/logo"
+                 android:scaleType="fitCenter"
+                 android:layout_marginBottom="8dp" />
+
+            <!-- App name -->
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginBottom="32dp"
+                 android:textSize="22sp"
+                 android:fontFamily="sans-serif"
+                 android:textColor="#333333"
+                 android:id="@+id/title"
+                 android:text="PRIVATE_SRC_FILES" />
+
+            <!-- Key input row -->
+            <LinearLayout
+                 android:layout_height="52dp"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="20dp"
+                 android:paddingEnd="12dp"
+                 android:paddingStart="16dp"
+                 android:gravity="center_vertical"
+                 android:background="@drawable/input_field_bg"
+                 android:orientation="horizontal">
+
+                <EditText
+                     android:layout_height="match_parent"
+                     android:layout_width="0dp"
+                     android:textSize="15sp"
+                     android:textColor="#1A1A1A"
+                     android:background="@android:color/transparent"
+                     android:hint="Enter Key"
+                     android:textColorHint="#AAAAAA"
+                     android:fontFamily="sans-serif"
+                     android:layout_weight="1"
+                     android:inputType="textVisiblePassword"
+                     android:id="@+id/userkey"
+                     android:singleLine="true" />
+
+                <ImageView
+                     android:layout_height="24dp"
+                     android:layout_width="24dp"
+                     android:src="@drawable/baseline_content_paste_24"
+                     android:background="?attr/selectableItemBackgroundBorderless"
+                     android:tint="#333333"
+                     android:padding="2dp"
+                     android:id="@+id/paste" />
+
+            </LinearLayout>
+
+            <!-- LOGIN button with gradient -->
+            <TextView
+                 android:layout_height="52dp"
+                 android:layout_width="match_parent"
+                 android:layout_marginBottom="0dp"
+                 android:textSize="16sp"
+                 android:fontFamily="sans-serif"
+                 android:background="@drawable/gradient_login_btn"
+                 android:textColor="#FFFFFF"
+                 android:id="@+id/login"
+                 android:text="LOGIN"
+                 android:textStyle="bold"
+                 android:gravity="center"
+                 android:stateListAnimator="@null" />
+
+            <!-- Hidden switch kept for functionality (referenced in code) -->
+            <Switch
+                 android:layout_height="0dp"
+                 android:layout_width="match_parent"
+                 android:visibility="gone"
+                 android:id="@+id/hiderecording" />
+
+            <!-- Get Key link -->
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:textSize="12sp"
+                 android:fontFamily="sans-serif"
+                 android:textColor="#999999"
+                 android:id="@+id/GetKey"
+                 android:layout_gravity="center_horizontal"
+                 android:layout_marginTop="16dp"
+                 android:text="[GET ACCESS KEY]"
+                 android:textStyle="bold"
+                 android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

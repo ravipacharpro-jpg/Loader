@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ================= Outfit X-SUIT ================= -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choice Outfit X-SUIT"
+                android:textColor="@color/white"
+                android:fontFamily="@font/roxmod"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp" />
+
+            <!-- Outfit Checkboxes (1–34) -->
+            <CheckBox android:id="@+id/bloodraven" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Blood Raven X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/goldenpharaoh" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Golden Pharaoh X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/avalanche" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Avalanche X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/poseidon" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Poseidon X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/arcanejester" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Arcane Jester X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/silvanus" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Silvanus X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/marmoris" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Marmoris X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/fiore" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Fiore X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/ignis" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Ignis X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/whitemummy" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="White Mummy X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/galadria" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Galadria X-Suit" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/flamewraith" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Flamewraith Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/majestic" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Majestic Cavalry Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/bramble" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Bramble Overlord Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/nether" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Nether Visage Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/swan" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Spectral Swan Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/celestial" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Untamed Celestial Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/snowstar" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Snowstar Sweetheart Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/arctic" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Arctic Conqueror Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/feral" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Feral Ravager Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/vampyra" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Vampyra Countess Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/serene" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Serene Lumina Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/mercury" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Mercury Soldier Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/luminous" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Luminous Muse Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/origin" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Origin Lumen Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/serpengleam" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Serpengleam Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/shinobi" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Shinobi Spirit Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/foxy" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Foxy Flare Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/glacial" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Glacial Bride Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/boxerbolt" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Boxerbolt Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/dandy" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Dandy Groovster Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/neptune" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Wrathful Neptune Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/noctum" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Noctum Sunder Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/crimson" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Crimson Ephialtes Set" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+
+            <!-- ================= Bag ================= -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choice Bag Skin"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roxmod" />
+
+            <CheckBox android:id="@+id/bag_poseidon" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Poseidon Bag" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/bag_mystique" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Mystique Splendor Bag" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/bag_ancient" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Ancient Civilization Bag" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/bag_galadria" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Galadria Bag" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/bag_alfheim" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Alfheim Wonder Bag" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+
+            <!-- ================= Helmet ================= -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choice Helmet Skin"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roxmod" />
+
+            <CheckBox android:id="@+id/helmet_inferno" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Inferno Rider Helmet" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/helmet_auric" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Auric Sentinel Helmet" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/helmet_galadria" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Galadria Helmet" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/helmet_shining" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Shining Eagle Helmet" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+            <CheckBox android:id="@+id/helmet_kingdom" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Eternal Kingdom Helmet" android:textColor="@color/white" android:fontFamily="@font/roxmod"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
