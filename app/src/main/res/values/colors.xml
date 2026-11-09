@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="apple_bg_obsidian">#07090E</color>
+    <color name="apple_glass_surface">#161B26</color>
+    <color name="apple_glass_elevated">#1E2534</color>
+    <color name="apple_hairline_border">#28FFFFFF</color>
+    <color name="apple_blue">#0A84FF</color>
+    <color name="apple_indigo">#5E5CE6</color>
+    <color name="apple_green">#30D158</color>
+    <color name="apple_amber">#FF9F0A</color>
+    <color name="apple_red">#FF453A</color>
+    <color name="apple_cyan">#64D2FF</color>
+    <color name="apple_text_primary">#F5F5F7</color>
+    <color name="apple_text_secondary">#8E8E93</color>
+</resources>

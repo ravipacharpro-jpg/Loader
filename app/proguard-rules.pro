@@ -1,0 +1,8 @@
+-keep class com.featurestic.** { *; }
+-keep class com.sbox.** { *; }
+-keep class top.niunaijun.blackbox.** { *; }
+-keep class net_62v.external.** { *; }
+-keep class com.vcore.** { *; }
+-keep class com.vbox.** { *; }
+-keep class com.fbox.** { *; }
+-dontwarn com.featurestic.**
